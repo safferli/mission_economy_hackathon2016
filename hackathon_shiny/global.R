@@ -7,8 +7,11 @@ library(shinydashboard)
 
 counter = 3
 
+selected_jurisdiction <- ""
+
 corp_names <- read.csv("names.csv")
 intermed_countries <- read.csv("intermed_countries.csv")
+jurisdiction_images <- read.csv("jurisdiction_beaches.csv")
 
 f.generate_random_name <- function(words = 3) {
   name <- corp_names %>%
@@ -29,4 +32,15 @@ f.get_intermediaries <- function(country, rows=5) {
     slice(1:rows) %>%
     select(Intermediary = int_name, Address = int_address, Country = ent_countries, CorpsSetupPreviously = count) %>%
     mutate(Address = paste0("<a href=\"https://www.google.ca/maps/search/", Address, "\">", Address, "</a>"))
+}
+
+f.get_pictures <- function(n) {
+  tmp <- jurisdiction_images %>%
+    sample_n(n)
+}
+
+f.get_active_corps_by_jurisdictions <- function(jurisdiction) {
+  tmp <- jurisdiction_images %>%
+    filter(jurisdiction_description == jurisdiction)
+  return(tmp$n[1])
 }
