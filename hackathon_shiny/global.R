@@ -1,6 +1,3 @@
-require(httr)
-require(jsonlite)
-require(png)
 library(stringi)
 library(DT)
 library(shiny)
