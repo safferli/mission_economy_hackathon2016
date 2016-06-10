@@ -46,7 +46,14 @@ shinyServer(function(input, output) {
   output$panel_three <- renderUI({
     conditionalPanel(
       condition = "input.next_button > '1'",
-      box(as.character(input$next_button))
+      box(
+        fluidRow(
+          column(3, offset=0, img(src = f.query_picture_url("british virgin islands"), width="100%")),
+          column(3, offset=4, img(src = f.query_picture_url("british virgin islands"), width="100%")),
+          column(3, offset=8, img(src = f.query_picture_url("british virgin islands"), width="100%"))
+        ),
+        width = 12
+      )
     )
   })
   

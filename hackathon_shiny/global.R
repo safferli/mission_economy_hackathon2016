@@ -1,3 +1,6 @@
+require(httr)
+require(jsonlite)
+require(png)
 library(stringi)
 library(shiny)
 library(shinydashboard)
@@ -27,4 +30,3 @@ f.get_intermediaries <- function(country, rows=5) {
     select(Intermediary = int_name, Address = int_address, Country = ent_countries, CorpsSetupPreviously = count) %>%
     mutate(Address = paste0("<a href=\"https://www.google.ca/maps/search/", Address, "\">", Address, "</a>"))
 }
-
