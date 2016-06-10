@@ -1,6 +1,7 @@
 # source
 
 * https://offshoreleaks.icij.org/
+* FAQ on terminology: https://offshoreleaks.icij.org/pages/about#terms_definition
 
 
 # other analysis done
