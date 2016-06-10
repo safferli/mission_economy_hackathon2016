@@ -2,8 +2,10 @@ library(shiny)
 library(shinydashboard)
 
 body_layout <- list(
-  fluidRow(
-    h1("Build Your Own Offshore Corporation")
+  div(class="container",
+    fluidRow(
+      h1("Build Your Own Offshore Corporation")
+    )
   )
 )
 
