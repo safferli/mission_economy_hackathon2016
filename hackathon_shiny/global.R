@@ -5,6 +5,8 @@ library(stringi)
 library(DT)
 library(shiny)
 library(shinydashboard)
+library(dplyr)
+library(stringr)
 
 counter = 3
 
