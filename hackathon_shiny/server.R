@@ -20,7 +20,7 @@ shinyServer(function(input, output) {
       box(
         title = "Generate your corporation's name:",
         solidHeader = TRUE,
-        f.generate_random_name(3),
+        h2(paste0(f.generate_random_name(3))),
         width = 12
       )
     )
@@ -44,13 +44,30 @@ shinyServer(function(input, output) {
     )
   })
   output$panel_three <- renderUI({
+    pictures <- f.get_pictures(3)
     conditionalPanel(
       condition = "input.next_button > '1'",
       box(
         fluidRow(
-          column(3, offset=0, img(src = f.query_picture_url("british virgin islands"), width="100%")),
-          column(3, offset=4, img(src = f.query_picture_url("british virgin islands"), width="100%")),
-          column(3, offset=8, img(src = f.query_picture_url("british virgin islands"), width="100%"))
+          column(3,
+                 h2(paste0(pictures$jurisdiction_description[1])),
+                 img(src = pictures$beach_url[1], width="100%")),
+          column(3, offset = 1,
+                 h2(paste0(pictures$jurisdiction_description[2])),
+                 img(src = pictures$beach_url[2], width="100%")),
+          column(3, offset = 1,
+                 h2(paste0(pictures$jurisdiction_description[3])),
+                 img(src = pictures$beach_url[3], width="100%"))
+        ),
+        selectInput("jurisdiction_select", label = "Choose your jurisdiction:", selected = "",
+                    choices = c("", as.character(pictures$jurisdiction_description))),
+        conditionalPanel(
+          condition = "input.jurisdiction_select != ''",
+          h3(paste0("Excellent choice!\n")),
+          renderText({
+            paste0(f.get_active_corps_by_jurisdictions(input$jurisdiction_select),
+                    " Offshore corporations are currently active in that area!")
+          })
         ),
         width = 12
       )
