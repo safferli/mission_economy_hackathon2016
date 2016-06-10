@@ -41,12 +41,15 @@ inter_and_ent <- ints %>%
 Country <- "Germany"
 ent_setup_count <- inter_and_ent %>%
   group_by(int_name, int_address, ent_countries) %>%
-  summarize(count=n_distinct(ent_name)) %>%
+  summarize(count=n_distinct(ent_name))
+ent_setup_count$int_address <- mapply(gsub, ent_setup_count$int_name, "", ent_setup_count$int_address)
+ent_setup_count <- ent_setup_count %>% ungroup() %>%
+  mutate(int_address = str_trim(int_address))
+#write.csv(ent_setup_count, "intermed_countries.csv", row.names = FALSE)
+ent_setup_count <- ent_setup_count %>%
   filter(grepl(tolower(Country), tolower(ent_countries))) %>%
   ungroup()
-ent_setup_count$int_address <- mapply(gsub, ent_setup_count$int_name, "", ent_setup_count$int_address)
 ent_setup_count <- ent_setup_count %>%
-  mutate(int_address = str_trim(int_address)) %>%
   ungroup() %>% arrange(desc(count))
 
 
