@@ -25,3 +25,5 @@ temp <- Entities %>%
 jurisdictions <- inner_join(jurisdictions, temp, by=c("jurisdiction_description"))
 
 #write.csv(jurisdictions, file = "jurisdiction_beaches.csv", row.names = FALSE)
+# remember to hard-code China to this image: http://www.dailysquib.co.uk/files/chinesebeach2.jpg
+# there is a TV series called "China Beach", so you'll get images of that, rather than beaches
