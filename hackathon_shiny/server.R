@@ -35,19 +35,32 @@ shinyServer(function(input, output) {
                     choices = c("", sort(unique(as.character(intermed_countries$ent_countries))))),
         conditionalPanel(
           condition = "input.country_select != ''",
-          renderDataTable({
-            f.get_intermediaries(country = input$country_select, 5)
-          }, escape = FALSE, options = list(paging = FALSE, searching = FALSE))
+          DT::dataTableOutput("intermediary_table"),
+          conditionalPanel(
+            condition = "input.intermediary_table_row_last_clicked >= '1'",
+            renderText({
+              paste0("You've chosen to enlist the services of ",
+                     f.get_intermediaries(country = input$country_select, 5)$Intermediary[as.integer(input$intermediary_table_row_last_clicked)],
+                     ". He/She has facilitated the creation of at least ",
+                     f.get_intermediaries(country = input$country_select, 5)$CorpsSetupPreviously[as.integer(input$intermediary_table_row_last_clicked)],
+                     " offshore corporations.")
+            })
+          )
         ),
         width = 12
       )
     )
   })
+  output$intermediary_table <- DT::renderDataTable({
+    DT::datatable(f.get_intermediaries(country = input$country_select, 5), selection = "single", escape = FALSE,
+                  options = list(paging = FALSE, searching = FALSE))
+  })
+  
   output$panel_three <- renderUI({
     pictures <- f.get_pictures(3)
     conditionalPanel(
       condition = "input.next_button > '1'",
-      box(title = "Choose your corporation's jurisdiction:"
+      box(title = "Choose your corporation's jurisdiction:",
         fluidRow(
           column(3,
                  #h2(paste0(pictures$jurisdiction_description[1])),
