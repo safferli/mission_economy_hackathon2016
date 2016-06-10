@@ -47,25 +47,31 @@ shinyServer(function(input, output) {
     pictures <- f.get_pictures(3)
     conditionalPanel(
       condition = "input.next_button > '1'",
-      box(
+      box(title = "Choose your corporation's jurisdiction:"
         fluidRow(
           column(3,
-                 h2(paste0(pictures$jurisdiction_description[1])),
+                 #h2(paste0(pictures$jurisdiction_description[1])),
+                 h2(paste0(1), align="center"),
                  img(src = pictures$beach_url[1], width="100%")),
           column(3, offset = 1,
-                 h2(paste0(pictures$jurisdiction_description[2])),
+                 #h2(paste0(pictures$jurisdiction_description[2])),
+                 h2(paste0(2), align="center"),
                  img(src = pictures$beach_url[2], width="100%")),
           column(3, offset = 1,
-                 h2(paste0(pictures$jurisdiction_description[3])),
+                 #h2(paste0(pictures$jurisdiction_description[3])),
+                 h2(paste0(3), align="center"),
                  img(src = pictures$beach_url[3], width="100%"))
         ),
         selectInput("jurisdiction_select", label = "Choose your jurisdiction:", selected = "",
-                    choices = c("", as.character(pictures$jurisdiction_description))),
+                    choices = c("", "1"=1,"2"=2,"3"=3)),
         conditionalPanel(
           condition = "input.jurisdiction_select != ''",
           h3(paste0("Excellent choice!\n")),
           renderText({
-            paste0(f.get_active_corps_by_jurisdictions(input$jurisdiction_select),
+            paste0("You've chosen ", pictures$jurisdiction_description[as.integer(input$jurisdiction_select)], "!")
+          }),
+          renderText({
+            paste0(pictures$n[as.integer(input$jurisdiction_select)],
                     " Offshore corporations are currently active in that area!")
           })
         ),
