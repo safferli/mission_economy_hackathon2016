@@ -79,9 +79,10 @@ islands.dep <- islands.wiki %>%
   setNames(make.names(names(.), unique = TRUE)) %>% 
   # stupid Windows and utf8 in Area
   select(Name, Population, Area = starts_with("Area"), everything()) %>% 
+  rename(Geographic.location = Geographic.Location) %>% 
   # get only Oceanic and Carribean islands
   filter(
-    grepl("(Caribbean Sea)|(Pacific Ocean)|(English Channel)", Geographic.Location)
+    grepl("(Caribbean Sea)|(Pacific Ocean)|(English Channel)", Geographic.location)
   ) %>% 
   mutate(
     Population = f.convert.to.numeric(Population),
@@ -93,6 +94,8 @@ islands.dep <- islands.wiki %>%
 
 
 islands <- bind_rows(islands.dep, islands.sov)
+
+write.csv(islands, file = "islandnations.csv", row.names = FALSE)
 
 
 
