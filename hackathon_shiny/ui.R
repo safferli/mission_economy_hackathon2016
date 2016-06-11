@@ -1,5 +1,6 @@
 library(shiny)
 library(shinydashboard)
+library(shinyBS)
 
 body_layout <- list(
   #div(class="container", style="width: 80%",
@@ -16,12 +17,13 @@ body_layout <- list(
     fluidRow(
       uiOutput("panel_three")
     ),
-    actionButton("next_button", label = "Next >>")
+    bsButton("next_button", label = "Next >>")
   )
 )
 
 dashboardPage(
   dashboardHeader(title = "Mission:Economy Hackathon"),
   dashboardSidebar(disable = TRUE),
-  dashboardBody(body_layout)
+  dashboardBody(body_layout,
+                textOutput("text"))
 )

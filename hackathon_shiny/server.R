@@ -10,7 +10,7 @@
 library(shiny)
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   
   # Panel steps
   # Name Panel
@@ -114,4 +114,26 @@ shinyServer(function(input, output) {
     )
   })
   
+  observeEvent({
+    input$next_button
+    input$intermediary_table_row_last_clicked
+    input$jurisdiction_select
+    },{
+    if (input$next_button == 2 & input$jurisdiction_select != "") {
+      updateButton(session, "next_button", label = "Finish", disabled = FALSE)
+    }
+      else if (input$next_button == 1 & input$country_select == "") {
+      updateButton(session, "next_button", label = "Next >>", disabled = TRUE)
+    }
+      else if (input$next_button == 1 & input$country_select != "") {
+      updateButton(session, "next_button", label = "Next >>", disabled = FALSE)
+      }
+      else if (input$next_button == 2 & input$jurisdiction_select == "") {
+      updateButton(session, "next_button", label = "Finish", disabled = TRUE)
+    }
+  })
+  
+  # output$text <- renderText({
+  #   paste0("next button:'", input$next_button, "'  row:'", "'  jur:'", input$jurisdiction_select, "'")
+  # })
 })

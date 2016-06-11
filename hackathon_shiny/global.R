@@ -6,6 +6,7 @@ library(dplyr)
 library(stringr)
 
 counter = 3
+row = 0
 
 selected_jurisdiction <- ""
 
