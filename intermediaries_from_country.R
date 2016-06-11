@@ -53,7 +53,11 @@ ent_setup_count <- ent_setup_count %>%
   ungroup() %>% arrange(desc(count))
 
 
-
+# Nominee directors
+ll <- Officers %>%
+  inner_join(Edges, by=c("node_id"="node_1")) %>%
+  filter(tolower(rel_type) == "nominee director of") %>%
+  inner_join(Officers, by=c("node_2"="node_id"))
 
 
 

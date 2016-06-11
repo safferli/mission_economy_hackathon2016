@@ -20,17 +20,33 @@ shinyServer(function(input, output) {
       box(
         title = "Generate your corporation's name:",
         solidHeader = TRUE,
-        h2(paste0(f.generate_random_name(3))),
+        renderText({
+          paste0("The following name was generated randomly using some of the most common words used in ",
+                 "the names of actual offshore corporations.")
+        }),
+        h2(textOutput("corp_name")),
+        actionButton("refresh_name", label = "Refresh"),
         width = 12
       )
     )
   })
+  output$corp_name <- renderText({get_new_corp_name()})
+  get_new_corp_name <- reactive({
+    input$refresh_name
+    f.generate_random_name(3)
+  })
+  
   output$panel_two <- renderUI({
     conditionalPanel(
       condition = "input.next_button > '0'",
       box(
         title = "Locate your local intermediary:",
         solidHeader = TRUE,
+        renderText({
+          paste0("The intermediary acts as a middle-man for you and the offshore service provider and is able ",
+                 "to purchase, on your behalf, on or several corporations. In the case of the Panama Papers, ",
+                 "Mossack Fonseca was the largest supplier of these corporations.")
+        }),
         selectInput("country_select", label = "Originating Country:", selected = "",
                     choices = c("", sort(unique(as.character(intermed_countries$ent_countries))))),
         conditionalPanel(
@@ -61,6 +77,11 @@ shinyServer(function(input, output) {
     conditionalPanel(
       condition = "input.next_button > '1'",
       box(title = "Choose your corporation's jurisdiction:",
+          renderText({
+            paste0("Typically a jurisdiction is chosen for its low-tax and specialization in providing corporate and commercial services to non-residents. ",
+                   "Three random jurisdictions, used to house offshore companies, taken from the Panama Papers are pirctured below. ",
+                   "Where would you like to store your assets?")
+          }),
         fluidRow(
           column(3,
                  #h2(paste0(pictures$jurisdiction_description[1])),
