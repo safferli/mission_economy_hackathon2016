@@ -106,8 +106,6 @@ background-color: #35383b;
 
 ---
 
-## Conclusion
-
 <img src="assets/img/capitalismrocks.jpg" />
 
 
