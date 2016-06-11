@@ -17,6 +17,9 @@ body_layout <- list(
     fluidRow(
       uiOutput("panel_three")
     ),
+    fluidRow(
+      uiOutput("final_panel")
+    ),
     bsButton("next_button", label = "Next >>")
   )
 )
@@ -24,6 +27,7 @@ body_layout <- list(
 dashboardPage(
   dashboardHeader(title = "Mission:Economy Hackathon"),
   dashboardSidebar(disable = TRUE),
-  dashboardBody(body_layout,
+  dashboardBody(useShinyjs(),
+                body_layout,
                 textOutput("text"))
 )

@@ -2,11 +2,14 @@ library(stringi)
 library(DT)
 library(shiny)
 library(shinydashboard)
+library(shinyBS)
+library(shinyjs)
 library(dplyr)
 library(stringr)
 
 counter = 3
 row = 0
+pictures
 
 selected_jurisdiction <- ""
 
@@ -32,6 +35,7 @@ f.get_intermediaries <- function(country, rows=5) {
     ungroup() %>% arrange(desc(count)) %>%
     slice(1:rows) %>%
     select(Intermediary = int_name, Address = int_address, Country = ent_countries, CorpsSetupPreviously = count) %>%
+    mutate(Address_original = Address) %>%
     mutate(Address = paste0("<a href=\"https://www.google.ca/maps/search/", Address, "\">", Address, "</a>"))
 }
 

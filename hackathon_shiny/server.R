@@ -16,7 +16,7 @@ shinyServer(function(input, output, session) {
   # Name Panel
   output$panel_one <- renderUI({
     conditionalPanel(
-      condition = "input.next_button > '-1'",
+      condition = "input.next_button > '-1' & input.next_button <= '2'",
       box(
         title = "Generate your corporation's name:",
         solidHeader = TRUE,
@@ -38,7 +38,7 @@ shinyServer(function(input, output, session) {
   
   output$panel_two <- renderUI({
     conditionalPanel(
-      condition = "input.next_button > '0'",
+      condition = "input.next_button > '0' & input.next_button <= '2'",
       box(
         title = "Locate your local intermediary:",
         solidHeader = TRUE,
@@ -73,9 +73,9 @@ shinyServer(function(input, output, session) {
   })
   
   output$panel_three <- renderUI({
-    pictures <- f.get_pictures(3)
+    pictures <<- f.get_pictures(3)
     conditionalPanel(
-      condition = "input.next_button > '1'",
+      condition = "input.next_button > '1' & input.next_button <= '2'",
       box(title = "Choose your corporation's jurisdiction:",
           renderText({
             paste0("Typically a jurisdiction is chosen for its low-tax and specialization in providing corporate and commercial services to non-residents. ",
@@ -130,7 +130,27 @@ shinyServer(function(input, output, session) {
       }
       else if (input$next_button == 2 & input$jurisdiction_select == "") {
       updateButton(session, "next_button", label = "Finish", disabled = TRUE)
+      } else if (input$next_button == 3) {
+      hide("next_button")
     }
+  })
+  
+  output$final_panel <- renderUI({
+    conditionalPanel(
+      condition = "input.next_button > '2'",
+      box(title = "Your Corporation:",
+      h2(renderText({paste0(get_new_corp_name())})),
+      h4(renderText({paste0("Intermediary: ")})),
+      renderText({paste0(f.get_intermediaries(country = input$country_select, 5)$Intermediary[as.integer(input$intermediary_table_row_last_clicked)])}),
+      renderText({paste0(f.get_intermediaries(country = input$country_select, 5)$Address_original[as.integer(input$intermediary_table_row_last_clicked)])}),
+      h4(renderText({paste0("Jurisdiction: ")})),
+      renderText({paste0(pictures$jurisdiction_description[as.integer(input$jurisdiction_select)])}),
+      br(),br(),
+      renderText({paste0("You are in good company! Here is a map of intermediaries from around the world:")}),
+      img(src = "interm_density.png"),
+      width = 12
+      )
+    )
   })
   
   # output$text <- renderText({
