@@ -18,5 +18,6 @@ slidify("index.Rmd")
 # when the input is TRUE.
 # https://github.com/ramnathv/slidify/issues/455#issuecomment-140250538
 
+# http://stackoverflow.com/questions/22567127/slidify-how-to-customize-a-slide-background
 
 # http://www.cbc.ca/news/world/panama-papers-offshore-tax-scope-1.3520001

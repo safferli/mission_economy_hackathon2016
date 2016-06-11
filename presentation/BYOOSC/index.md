@@ -9,16 +9,15 @@ hitheme     : tomorrow      #
 widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
---- ds:frankfurt
+--- ds:main
 
 <!-- title slide -->
 
-<p style="color: #13DAEC; font-family: 'Lato', sans-serif; font-size: 180%; margin: 0 0 25% 0;">
+<p style="color: #13DAEC; font-family: 'Lato', sans-serif; font-size: 170%; margin: -5% 0 25% 0;">
   Build Your Own Offshore Company <br />
-  <span style="font-size: 80%;"></span>
 </p>
 
-<p style="font-size: 130%; color: #ffffff;">
+<p style="font-size: 130%; color: #ffffff; margin: 0 0 5% 0;">
   Mission Economy Hackathon <br/ >
   Düsseldorf 2016
 </p>
@@ -33,20 +32,37 @@ knit        : slidify::knit2slides
 </style>
 
 <style>
-html.frankfurt body {
-background:url("./assets/img/panama-papers.jpg");
-background-position:center;
+html.main body {
+background:url("./assets/img/offshore.jpg");
+background-position: center;
 background-size: 100%;
 background-repeat: no-repeat;
 background-color: #35383b;
 } 
 </style>
-<!-- image credit: https://www.flickr.com/photos/friedrichs/14260935259/ -->
 
+
+---
 
 ## asdf
 
 * asdf
+
+
+--- #custbg
+
+## Slide with custom background
+
+<style>
+#custbg {
+  background-image:url("./assets/img/offshore.jpg"); 
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+</style>
+
+asdf
 
 
 
