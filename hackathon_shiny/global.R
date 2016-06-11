@@ -9,7 +9,7 @@ library(stringr)
 
 counter = 3
 row = 0
-pictures
+pictures <- NA
 
 selected_jurisdiction <- ""
 
