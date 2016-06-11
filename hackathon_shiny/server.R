@@ -145,6 +145,9 @@ shinyServer(function(input, output, session) {
       renderText({paste0(f.get_intermediaries(country = input$country_select, 5)$Address_original[as.integer(input$intermediary_table_row_last_clicked)])}),
       h4(renderText({paste0("Jurisdiction: ")})),
       renderText({paste0(pictures$jurisdiction_description[as.integer(input$jurisdiction_select)])}),
+      br(),br(),
+      renderText({paste0("You are in good company! Here is a map of intermediaries from around the world:")}),
+      img(src = "interm_density.png"),
       width = 12
       )
     )
