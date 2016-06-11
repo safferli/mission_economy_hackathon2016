@@ -44,7 +44,7 @@ shinyServer(function(input, output, session) {
         solidHeader = TRUE,
         renderText({
           paste0("The intermediary acts as a middle-man for you and the offshore service provider and is able ",
-                 "to purchase, on your behalf, on or several corporations. In the case of the Panama Papers, ",
+                 "to purchase, on your behalf, one or several corporations. In the case of the Panama Papers, ",
                  "Mossack Fonseca was the largest supplier of these corporations.")
         }),
         selectInput("country_select", label = "Originating Country:", selected = "",
